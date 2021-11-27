@@ -1,0 +1,36 @@
+version: "3.6"
+networks:
+  mattermost:
+    name: "mattermost"
+
+services:
+  mattermost-app:
+    image: mattermost/mattermost-team-edition:${TAG}
+    container_name: mattermost-app
+    ports:
+      - "${DOCKER_EXPOSED_PORT}:8065"
+    volumes:
+      - ./volumes/mattermost-config:/mattermost/config:rw
+      - ./volumes/mattermost-data:/mattermost/data:rw
+      - ./volumes/mattermost-plugins:/mattermost/plugins:rw
+    env_file: .env
+    networks:
+      - mattermost
+    depends_on:
+      - mattermost-postgres
+    restart: unless-stopped
+    logging:
+      driver: "json-file"
+      options:
+        max-file: "5"
+        max-size: 100m
+
+  mattermost-postgres:
+    image: postgres:12-alpine
+    container_name: mattermost-postgres
+    volumes:
+      - ./volumes/mattermost-postgres:/var/lib/postgresql/data:rw
+    env_file: .env
+    networks:
+      - mattermost
+    restart: unless-stopped
