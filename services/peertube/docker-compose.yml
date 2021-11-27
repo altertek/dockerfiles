@@ -1,0 +1,51 @@
+version: "3.3"
+
+services:
+  peertube:
+    image: chocobozzz/peertube:${TAG}
+    networks:
+      default:
+        ipv4_address: 172.18.0.42
+    env_file:
+      - .env
+
+    ports:
+     - "1935:1935" # If you don't want to use the live feature, you can comment this line
+     - "9000:9000" # If you provide your own webserver and reverse-proxy, otherwise not suitable for production
+    volumes:
+      - assets:/app/client/dist
+      - ./volumes/data:/data
+      - ./volumes/config:/config
+    depends_on:
+      - peertube-postgres
+      - peertube-redis
+    restart: unless-stopped
+    logging:
+      driver: "json-file"
+      options:
+        max-file: "5"
+        max-size: 100m
+
+
+  peertube-postgres:
+    image: postgres:13-alpine
+    container_name: peertube-postgres
+    env_file:
+      - .env
+    volumes:
+      - ./volumes/db:/var/lib/postgresql/data
+    restart: unless-stopped
+
+  peertube-redis:
+    image: redis:6-alpine
+    container_name: peertube-redis
+    volumes:
+      - ./volumes/redis:/data
+    restart: unless-stopped
+
+networks:
+  default:
+    ipam:
+      driver: default
+      config:
+      - subnet: 172.18.0.0/16
