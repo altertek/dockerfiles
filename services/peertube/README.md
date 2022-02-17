@@ -3,6 +3,9 @@
 > Free and open-source, decentralized, federated video platform
 
 ```
+cp .env.sample .env
+# Change the value in .env with your configuration
+
 mkdir -p ./volumes/{data,config,db,redis}
 docker-compose up -d
 ```
