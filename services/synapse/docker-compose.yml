@@ -1,0 +1,39 @@
+version: '3.3'
+
+networks:
+  synapse:
+
+services:
+  synapse:
+    image: docker.io/matrixdotorg/synapse:${TAG:-latest}
+    volumes:
+      - ./volumes/data:/data:rw
+    networks:
+      - synapse
+    ports:
+      - "${DOCKER_EXPOSED_PORT:-8008}:8008"
+        #- "${DOCKER_FEDERATION_PORT:-8448}:8448"
+    environment:
+      - SYNAPSE_NO_TLS=1
+      #- SYNAPSE_CONFIG_PATH=/config
+    env_file: .env
+    restart: unless-stopped
+    logging:
+        driver: "json-file"
+        options:
+            max-file: "5"
+            max-size: 100m
+
+  db:
+    container_name: postgres
+    image: docker.io/postgres:14-alpine
+    environment:
+      # ensure the database gets created correctly
+      # https://matrix-org.github.io/synapse/latest/postgres.html#set-up-database
+      - POSTGRES_INITDB_ARGS=--encoding=UTF-8 --lc-collate=C --lc-ctype=C
+    env_file: .env
+    volumes:
+      - ./volumes/postgres:/var/lib/postgresql/data:rw
+    networks:
+      - synapse
+    restart: unless-stopped
