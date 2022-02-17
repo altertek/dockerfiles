@@ -14,6 +14,9 @@ services:
       - ./volumes/mattermost-data:/mattermost/data:rw
       - ./volumes/mattermost-plugins:/mattermost/plugins:rw
     env_file: .env
+    environment:
+      - MM_SQLSETTINGS_DRIVERNAME=postgres
+      - MM_SQLSETTINGS_DATASOURCE=postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@mattermost-postgres:5432/${POSTGRES_DB}?sslmode=disable
     networks:
       - mattermost
     depends_on:
