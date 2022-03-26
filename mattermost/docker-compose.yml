@@ -29,7 +29,7 @@ services:
         max-size: 100m
 
   mattermost-postgres:
-    image: postgres:12-alpine
+    image: postgres:14-alpine
     container_name: mattermost-postgres
     volumes:
       - ./volumes/mattermost-postgres:/var/lib/postgresql/data:rw
