@@ -10,4 +10,10 @@ mkdir -p ./volumes/{data,config,db,redis}
 docker-compose up -d
 ```
 
+Update procedure
+```
+docker-compose pull
+docker-compose down -v
+docker-compose up -d
+```
 Git repository: https://github.com/Chocobozzz/PeerTube
