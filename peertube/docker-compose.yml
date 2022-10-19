@@ -2,7 +2,7 @@ version: "3.3"
 
 services:
   peertube:
-    image: chocobozzz/peertube:${TAG}
+    image: chocobozzz/peertube:${TAG:-v4.3.0-bullseye}
     networks:
       default:
         ipv4_address: 172.18.0.42
