@@ -1,11 +1,10 @@
-version: "3.6"
 networks:
   mattermost:
     name: "mattermost"
 
 services:
   mattermost-app:
-    image: mattermost/mattermost-team-edition:${TAG:-9.4.1}
+    image: mattermost/mattermost-team-edition:${TAG:-9.9.0}
     container_name: mattermost-app
     ports:
       - "${DOCKER_EXPOSED_PORT}:8065"
