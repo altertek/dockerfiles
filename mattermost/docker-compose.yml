@@ -4,7 +4,7 @@ networks:
 
 services:
   mattermost-app:
-    image: mattermost/mattermost-team-edition:${TAG:-9.9.0}
+    image: mattermost/mattermost-team-edition:${TAG:-10.1.3}
     container_name: mattermost-app
     ports:
       - "${DOCKER_EXPOSED_PORT}:8065"
