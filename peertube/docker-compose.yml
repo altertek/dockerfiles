@@ -1,9 +1,10 @@
 services:
   peertube:
-    image: chocobozzz/peertube:${TAG:-v6.1.0-bookworm}
+    image: chocobozzz/peertube:${TAG:-v6.3.2-bookworm}
     networks:
       default:
         ipv4_address: 172.18.0.42
+        ipv6_address: 2001:db8:2::42
     env_file:
       - .env
 
@@ -43,7 +44,9 @@ services:
 
 networks:
   default:
+    enable_ipv6: true
     ipam:
       driver: default
       config:
       - subnet: 172.18.0.0/16
+      - subnet: 2001:db8:2::/64
