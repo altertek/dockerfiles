@@ -16,6 +16,7 @@ services:
     environment:
       - MM_SQLSETTINGS_DRIVERNAME=postgres
       - MM_SQLSETTINGS_DATASOURCE=postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@mattermost-postgres:5432/${POSTGRES_DB}?sslmode=disable
+      - MM_CALLS_GROUP_CALLS_ALLOWED=true
     networks:
       - mattermost
     depends_on:
