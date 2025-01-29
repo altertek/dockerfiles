@@ -1,6 +1,6 @@
 services:
   peertube:
-    image: chocobozzz/peertube:${TAG:-v6.3.2-bookworm}
+    image: chocobozzz/peertube:${TAG:-v7.0.1-bookworm}
     networks:
       default:
         ipv4_address: 172.18.0.42
