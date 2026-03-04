@@ -4,7 +4,7 @@ networks:
 
 services:
   mattermost-app:
-    image: ghcr.io/this-is-tobi/mirror/mostlymatter:${TAG:-11.2.1}
+    image: ghcr.io/this-is-tobi/mirror/mostlymatter:${TAG:-11.4.2}
     container_name: mattermost-app
     ports:
       - "${DOCKER_EXPOSED_PORT}:8065"
